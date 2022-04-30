@@ -11,8 +11,20 @@ const Header = () => {
     const [open, setOpen] = useState(true)
     const [openUser, setOpenUser] = useState(false)
     const [user] = useAuthState(auth)
+    const [nav, setNav] = useState(true)
+
+    const changeBackground = () => {
+        console.log(window.scrollY);
+        if (window.scrollY >= 80) {
+            setNav(true)
+        }
+        else {
+            setNav(false)
+        }
+    }
+    window.addEventListener('scroll', changeBackground)
     return (
-        <div className=''>
+        <div className={`sticky top-0 h-[80px] ${!nav ? 'bg-transparent' : 'bg-white'} z-50`}>
             < div className=' h-[80px] md:flex md:justify-between md:items-center w-[90%] mx-auto ' >
 
                 <div className='h-full'>
