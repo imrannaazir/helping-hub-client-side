@@ -1,4 +1,4 @@
-import { faArrowRightToBracket, faBars, faUser, faX } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightToBracket, faBars, faCaretDown, faUser, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
@@ -35,17 +35,22 @@ const Header = () => {
 
 
                     {user ?
-                        <div className=' w-full flex justify-center'><img
-                            className=' w-12 rounded-full'
+                        <div
                             onClick={() => setOpenUser(!openUser)}
-                            src={user?.photoURL} alt="" /></div>
+                            className=' w-full flex justify-center items-center cursor-pointer'>
+                            <img
+                                className=' w-12 rounded-full'
+
+                                src={user?.photoURL} alt="" />
+                            <FontAwesomeIcon icon={faCaretDown} />
+                        </div>
                         :
                         <Link className=' px-4 py-2 bg-gray-500 rounded-md text-white mb-3 md:mb-0 inline-block' to='/login'>
 
                             Login
 
                         </Link>}
-                    <div className={` absolute text-left border-2 p-4  rounded-lg shadow-lg ${!openUser ? '-right-[260px] md:-right-[500px]' : 'right-0 md:right-0 top-[220px] md:top-16'} ${!user && 'hidden'} bg-white`}>
+                    <div className={` absolute text-left border-2 p-4  rounded-lg shadow-lg ${!openUser ? '-top-[560px] md:-top-[500px]' : 'right-0 md:right-0 top-[220px] md:top-16'} ${!user && 'hidden'} bg-white`}>
                         <img className='rounded-full' src={user?.photoURL} alt="" />
                         <hr className=' border-t-2 my-2' />
                         <p>{user?.displayName}</p>

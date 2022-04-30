@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../Header/Header';
+const Donation = ({ event: { title, img, } }) => {
 
-const Donation = () => {
     return (
-        <div>
-            <Header />
-            donation
+        <div className=' w-[270px] h-[320px]'>
+            <img src={img} alt="" />
+            <p>{title}</p>
+
         </div>
     );
 };

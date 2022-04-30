@@ -1,8 +1,10 @@
 import { faAdd, faHouse, faRightToBracket, faUsers, } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logos/logo.png'
+import auth from '../../firebase.init';
 
 const Dashboard = () => {
     return (
@@ -18,6 +20,7 @@ const Dashboard = () => {
 
             <div>
                 <button
+                    onClick={() => signOut(auth)}
                 ><FontAwesomeIcon icon={faRightToBracket} /> Logout</button>
                 <hr />
             </div>
