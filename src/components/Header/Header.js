@@ -12,12 +12,12 @@ const Header = () => {
     const [open, setOpen] = useState(true)
     const [openUser, setOpenUser] = useState(false)
     const [user] = useAuthState(auth)
-    const [nav, setNav] = useState(true)
+    const [nav, setNav] = useState(false)
     const navigate = useNavigate()
 
     const changeBackground = () => {
-        console.log(window.scrollY);
-        if (window.scrollY >= 80) {
+
+        if (window.scrollY >= 90) {
             setNav(true)
         }
         else {

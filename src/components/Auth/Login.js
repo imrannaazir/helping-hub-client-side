@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../Header/Header';
 import google from '../../assets/logos/google.png'
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [user, loading] = useAuthState(auth)
+    useEffect(() => {
+        if (user) {
+            navigate(from);
+        }
+    }, [user]);
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/"
+    const [signInWithGoogle, googleUser, googleLoading, error] = useSignInWithGoogle(auth);
     const login = () => {
         signInWithGoogle()
     }
-    if (loading) {
-        return <div className='text-center'><Header />
+    if (googleLoading) {
+        return <div className='text-center h-screen '><Header />
             <span className='px-4 py-2 bg-yellow-100 rounded-lg shadow-lg'>Loading...</span></div>
     }
-    else if (error) {
+    if (loading) {
+        return <div className='text-center h-screen '>
+            <span className='px-4 py-2 bg-yellow-100 rounded-lg shadow-lg'>Loading...</span></div>
+    }
+    if (error) {
         console.log(error);
     }
-    else if (user) {
-        console.log(user);
-    }
+
     return (
         <div>
             <Header />

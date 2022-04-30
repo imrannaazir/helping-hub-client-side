@@ -9,6 +9,7 @@ import Admin from './components/Admin/Admin'
 import AddEvent from './components/AddEvent/AddEvent';
 import Footer from './components/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
+import RequireAuth from './components/Auth/RequireAuth';
 
 function App() {
   return (
@@ -17,12 +18,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/events' element={<Events />} />
+        <Route path='/events' element={<RequireAuth><Events /></RequireAuth>} />
         <Route path='/blog' element={<Blog />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/admin' element={<Admin />} />
-        <Route path='/add' element={<AddEvent />} />
+        <Route path='/register/:id' element={<RequireAuth><Register /></RequireAuth>} />
+        <Route path='/admin' element={<RequireAuth><Admin /></RequireAuth>} />
+        <Route path='/add' element={<RequireAuth><AddEvent /></RequireAuth>} />
 
 
 
