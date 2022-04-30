@@ -1,16 +1,15 @@
 import React from 'react';
 import Dashboard from '../Dashboard/Dashboard';
 
-const Admin = () => {
+const AddEvent = () => {
     return (
-        <div className='flex bg-[#fafafa]'>
+        <div className='bg-[#fafafa] flex '>
             <Dashboard />
             <div className=' w-full'>
-                <p className=' bg-white text-2xl shadow-sm py-2 pl-6'>Volunteer register List</p>
+                <p className=' bg-white text-2xl shadow-sm py-2 pl-6'>Add new events</p>
             </div>
-
         </div>
     );
 };
 
-export default Admin;
+export default AddEvent;
