@@ -1,12 +1,16 @@
-import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightToBracket, faBars, faUser, faX } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logos/logo.png'
+import auth from '../../firebase.init';
 
 const Header = () => {
     const [open, setOpen] = useState(true)
     const [openUser, setOpenUser] = useState(false)
+    const [user] = useAuthState(auth)
     return (
         <div className=''>
             < div className=' h-[80px] md:flex md:justify-between md:items-center w-[90%] mx-auto ' >
@@ -15,31 +19,41 @@ const Header = () => {
                     <img className=' h-[80%]' src={logo} alt="" />
                 </div>
 
-                <div className={` md:flex gap-4 text-lg items-center absolute left-0 ${open && 'top-[-500px]'} transition-dura 1s ease-linear md:static w-[100%] md:w-auto text-center bg-white md:bg-transparent`}>
+                <div className={` md:flex gap-4 text-lg items-center absolute left-0 ${open && 'top-[-500px]'} transition-dura 1s ease-linear md:static w-[100%] md:w-auto text-center bg-white md:bg-transparent py-2`}>
                     <p> <Link to='/'>Home</Link></p>
                     <p>  <Link to='/donation'>Donation</Link></p>
                     <p>   <Link to='/events'>Events</Link></p>
                     <p>  <Link to='/blog'>Blog</Link></p>
-                    <p>  <Link to='/register'>
-                        <button
-                            className=' px-4 py-2 bg-blue-500 rounded-md text-white my-3'>
-                            Register
-                        </button>
-                    </Link></p>
-                    <div className=' relative'>  <Link to='/login'>
-                        <button
-                            onClick={() => setOpenUser(!openUser)}
-                            className=' px-4 py-2 bg-gray-500 rounded-md text-white mb-3 md:mb-0'>
-                            Login
-                        </button>
+
+                    <Link className=' px-4 py-2 bg-blue-500 rounded-md text-white my-3  inline-block' to='/register'>
+
+
+                        Register
+
                     </Link>
-                        <div className={` absolute text-left border-2 p-4  rounded-lg shadow-lg ${!openUser ? '-right-[160px] md:-right-[500px]' : 'right-[95px] md:-right-12 top-8 md:top-10'} bg-white`}>
-                            <p>Name</p>
-                            <p>Email</p>
-                            <p><Link to='/admin'>Dashboard</Link></p>
-                            <button>Logout</button>
-                        </div>
+                    <br />
+
+
+                    {user ?
+                        <div className=' w-full flex justify-center'><img
+                            className=' w-12 rounded-full'
+                            onClick={() => setOpenUser(!openUser)}
+                            src={user?.photoURL} alt="" /></div>
+                        :
+                        <Link className=' px-4 py-2 bg-gray-500 rounded-md text-white mb-3 md:mb-0 inline-block' to='/login'>
+
+                            Login
+
+                        </Link>}
+                    <div className={` absolute text-left border-2 p-4  rounded-lg shadow-lg ${!openUser ? '-right-[260px] md:-right-[500px]' : 'right-0 md:right-0 top-[220px] md:top-16'} ${!user && 'hidden'} bg-white`}>
+                        <img className='rounded-full' src={user?.photoURL} alt="" />
+                        <hr className=' border-t-2 my-2' />
+                        <p>{user?.displayName}</p>
+                        <p className='text-xs mb-6'>{user?.email}</p>
+                        <p><Link to='/admin'><FontAwesomeIcon icon={faUser} /> Dashboard</Link></p>
+                        <button onClick={() => signOut(auth)}><FontAwesomeIcon icon={faArrowRightToBracket} /> Logout</button>
                     </div>
+
                 </div>
             </div >
             <p onClick={() => setOpen(!open)} className=' absolute top-4 right-4 text-xl md:hidden'>
