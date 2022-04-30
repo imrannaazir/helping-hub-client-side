@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logos/logo.png'
 import auth from '../../firebase.init';
 
@@ -12,6 +13,7 @@ const Header = () => {
     const [openUser, setOpenUser] = useState(false)
     const [user] = useAuthState(auth)
     const [nav, setNav] = useState(true)
+    const navigate = useNavigate()
 
     const changeBackground = () => {
         console.log(window.scrollY);
@@ -23,6 +25,18 @@ const Header = () => {
         }
     }
     window.addEventListener('scroll', changeBackground)
+
+    const handleNavigate = () => {
+        navigate('/');
+        toast.error('Please choose a event!', {
+            icon: '😒',
+            style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+            },
+        });
+    }
     return (
         <div className={`sticky top-0 h-[80px] ${!nav ? 'bg-transparent' : 'bg-white'} z-50`}>
             < div className=' h-[80px] md:flex md:justify-between md:items-center w-[90%] mx-auto ' >
@@ -37,12 +51,9 @@ const Header = () => {
                     <p>   <Link to='/events'>Events</Link></p>
                     <p>  <Link to='/blog'>Blog</Link></p>
 
-                    <Link className=' px-4 py-2 bg-blue-500 rounded-md text-white my-3  inline-block' to='/register'>
-
-
+                    <span onClick={handleNavigate} className=' px-4 py-2 bg-blue-500 rounded-md text-white my-3  inline-block cursor-pointer' >
                         Register
-
-                    </Link>
+                    </span>
                     <br />
 
 
