@@ -5,7 +5,7 @@ const Register = () => {
     return (
         <div>
             <Header />
-            <div className='w-[375px]  mx-auto border-2 mt-20 rounded-lg shadow-lg px-4 py-8'>
+            <div className='w-[375px]  mx-auto border-2 my-20 rounded-lg shadow-lg px-4 py-8'>
                 <p className=' text-lg font-semibold mb-4'>Register as a Volunteer</p>
                 <form >
                     <p>Full Name:</p>

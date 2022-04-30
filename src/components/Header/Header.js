@@ -33,7 +33,7 @@ const Header = () => {
 
                 <div className={` md:flex gap-4 text-lg items-center absolute left-0 ${open && 'top-[-500px]'} transition-dura 1s ease-linear md:static w-[100%] md:w-auto text-center bg-white md:bg-transparent py-2`}>
                     <p> <Link to='/'>Home</Link></p>
-                    <p>  <Link to='/donation'>Donation</Link></p>
+                    <p>  <a href='/#donation'>Donation</a></p>
                     <p>   <Link to='/events'>Events</Link></p>
                     <p>  <Link to='/blog'>Blog</Link></p>
 

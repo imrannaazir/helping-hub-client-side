@@ -25,7 +25,7 @@ const Home = () => {
                         <input className=' h-10 w-[300px] rounded-l-md border-2 pl-4' type="text" placeholder='Search...' />
                         <button className=' h-10 bg-blue-400 px-4 rounded-r-md text-white'>Search</button>
                     </div>
-                    <div className=' grid grid-cols-3 my-20 w-[80%] mx-auto gap-y-16'>
+                    <div id='donation' className=' grid grid-cols-3 my-20 w-[80%] mx-auto gap-y-16'>
                         {
                             events.map(event => <Donation key={event._id} event={event}>{event.title}</Donation>)
                         }
