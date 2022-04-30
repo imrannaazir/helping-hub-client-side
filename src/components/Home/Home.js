@@ -13,7 +13,7 @@ const Home = () => {
         }
         loadEvents()
     }, [])
-
+    console.log(events?.data);
     return (
         <div>
             <Header />

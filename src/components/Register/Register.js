@@ -1,4 +1,6 @@
+import { async } from '@firebase/util';
 import axios from 'axios';
+import { stringify } from 'postcss';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useParams } from 'react-router-dom';
@@ -20,49 +22,72 @@ const Register = () => {
 
 
     const selectedEvent = events.find(event => event._id === id)
-    console.log(selectedEvent);
+    console.log((selectedEvent?.date));
 
     if (loading) {
         return <p>Loading...</p>
     }
+
+    const newVolunteer = {
+        name: user?.displayName,
+        email: user?.email,
+        date: selectedEvent?.data,
+        describe: selectedEvent?.description,
+        event: selectedEvent?.title
+    }
+    const postVolunteer = async () => {
+        console.log(newVolunteer);
+
+        const { data } = await axios.post('http://localhost:5000/volunteers ', newVolunteer)
+        console.log(data);
+
+    }
+    postVolunteer()
+
     return (
         <div>
             <Header />
             <div className='w-[375px]  mx-auto border-2 my-20 rounded-lg shadow-lg px-4 py-8'>
                 <p className=' text-lg font-semibold mb-4'>Register as a Volunteer</p>
-                <form >
+                <div >
                     <p>Full Name:</p>
                     <input
                         className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm pl-2'
-                        value={user.displayName}
+                        value={user?.displayName}
                         type="text"
                         disabled />
 
                     <p>Your Email:</p>
                     <input
                         className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm pl-2'
-                        value={user.email}
+                        value={user?.email}
                         type="email"
                         disabled />
 
                     <p>Date:</p>
                     <input
-                        className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm'
-                        name='date'
-                        type="text" />
+                        className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm pl-2'
+                        value={selectedEvent?.data}
+                        type="date"
+                        disabled />
+
                     <p>Description:</p>
                     <input
-                        className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm'
-                        name='description'
-                        type="text" />
+                        className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm pl-2'
+                        value={selectedEvent?.description}
+                        type="text"
+                        disabled />
                     <p>Event Name:</p>
                     <input
-                        className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm'
-                        name='event'
-                        type="text" />
-                    <button className='w-[330px]
+                        className=' border-2 w-[330px] mb-2 py-1 rounded-lg shadow-sm p-2'
+                        value={selectedEvent?.title}
+                        type="text"
+                        disabled />
+                    <button
+                        onClick={postVolunteer}
+                        className='w-[330px]
                     bg-sky-400 py-2 text-white font-bold rounded-lg'>Register</button>
-                </form>
+                </div>
 
             </div>
         </div>
