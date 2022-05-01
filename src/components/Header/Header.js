@@ -38,7 +38,7 @@ const Header = () => {
         });
     }
     return (
-        <div className={`sticky top-0 h-[80px] ${!nav ? 'bg-transparent' : 'bg-white'} z-50`}>
+        <div className={`sticky top-0 h-[80px] ${!nav ? 'bg-transparent' : 'bg-black text-white'} z-50`}>
             < div className=' h-[80px] md:flex md:justify-between md:items-center w-[90%] mx-auto ' >
 
                 <div className='h-full'>
@@ -62,9 +62,10 @@ const Header = () => {
                             onClick={() => setOpenUser(!openUser)}
                             className=' w-full flex justify-center items-center cursor-pointer'>
                             <img
-                                className=' w-12 rounded-full'
+                                className=' w-12 rounded-full z-50'
 
                                 src={user?.photoURL} alt="" />
+
                             <FontAwesomeIcon icon={faCaretDown} />
                         </div>
                         :
@@ -73,7 +74,7 @@ const Header = () => {
                             Login
 
                         </Link>}
-                    <div className={` absolute text-left border-2 p-4  rounded-lg shadow-lg ${!openUser ? '-top-[560px] md:-top-[500px]' : 'right-0 md:right-0 top-[220px] md:top-16'} ${!user && 'hidden'} bg-white`}>
+                    <div className={` absolute text-left border-2 p-4  rounded-lg shadow-lg ${!openUser ? '-top-[560px] md:-top-[500px]' : 'right-0 md:right-0 top-[220px] md:top-16'} ${!user && 'hidden'} ${!nav ? 'bg-white' : 'bg-black'}`}>
                         <img className='rounded-full' src={user?.photoURL} alt="" />
                         <hr className=' border-t-2 my-2' />
                         <p>{user?.displayName}</p>

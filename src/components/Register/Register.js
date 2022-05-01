@@ -3,11 +3,13 @@ import axios from 'axios';
 import { stringify } from 'postcss';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Header from '../Header/Header';
 
 const Register = () => {
+    const navigate = useNavigate()
     const { id } = useParams()
     const [user, loading] = useAuthState(auth)
 
@@ -33,16 +35,25 @@ const Register = () => {
         email: user?.email,
         date: selectedEvent?.data,
         describe: selectedEvent?.description,
-        event: selectedEvent?.title
+        event: selectedEvent?.title,
+        img: selectedEvent?.img
     }
     const postVolunteer = async () => {
-        console.log(newVolunteer);
-
-        const { data } = await axios.post('http://localhost:5000/volunteers ', newVolunteer)
-        console.log(data);
+        const proceed = await window.confirm('Are you sure registered?')
+        if (proceed) {
+            try {
+                const { data } = await axios.post('http://localhost:5000/volunteers ', newVolunteer)
+                console.log(data);
+                navigate('/events')
+                toast.success('Congratulation! registration successful.')
+            }
+            catch (err) {
+                console.log();
+            }
+        }
 
     }
-    postVolunteer()
+
 
     return (
         <div>
